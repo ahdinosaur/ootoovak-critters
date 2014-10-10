@@ -19,19 +19,15 @@ World.prototype = {
     this.queue()
   },
   clear: function() {
-    console.info("clear")
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
   queue: function() {
-    console.info("queue")
     window.requestAnimationFrame(this.cycle.bind(this));
   },
   update: function() {
-    console.info("update")
     // stub
   },
   draw: function() {
-    console.info("draw")
     // stub
   },
 }
