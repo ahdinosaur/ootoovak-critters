@@ -7,7 +7,7 @@ var Particle = function(position, velocity, acceleration) {
 }
 
 Particle.prototype = {
-  move = function () {
+  move: function () {
     this.velocity.add(this.acceleration)
     this.position.add(this.velocity)
   },
