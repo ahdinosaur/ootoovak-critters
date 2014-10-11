@@ -22,8 +22,15 @@ World.prototype = {
   initialize: function() {
     this.canvas.width  = window.innerWidth
     this.canvas.height = window.innerHeight
-    this.emitters.push(this.createAnEmitter())
-    this.fields.push(this.createAField())
+    this.emitters = [
+      this.createAnEmitter(300,   525,  0,  2),
+      this.createAnEmitter(1100,  525,  0,  -2),
+    ]
+    this.fields = [
+      this.createAField(700,  325,  2000),
+      this.createAField(700,  525,  -200),
+      this.createAField(700,  725,  2000),
+    ]
   },
   cycle: function() {
     this.clear()
@@ -46,14 +53,14 @@ World.prototype = {
     this.fields.forEach(this.drawCircle.bind(this))
     this.emitters.forEach(this.drawCircle.bind(this))
   },
-  createAnEmitter: function() {
-    var position = new Vector(300, 500)
-    var velocity = Vector.fromAngle(0, 2)
+  createAnEmitter: function(x, y, fromAngle, toAngle) {
+    var position = new Vector(x, y)
+    var velocity = Vector.fromAngle(fromAngle, toAngle)
     return new Emitter(position, velocity)
   },
-  createAField: function() {
-    var position = new Vector(500, 500)
-    return new Field(position, -140)
+  createAField: function(x, y, mass) {
+    var position = new Vector(x, y)
+    return new Field(position, mass)
   },
   addNewParticles: function() {
     if (this.particles.length > this.maxParticles) return

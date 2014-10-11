@@ -5,7 +5,7 @@ var Emitter = function(position, velocity, spread) {
   this.position  = position
   this.velocity  = velocity
   this.spread    = spread || (Math.PI / 16)
-  this.drawColor = '#999'
+  this.drawColor = '#099'
 }
 
 Emitter.prototype = {
