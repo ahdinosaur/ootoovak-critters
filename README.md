@@ -3,7 +3,7 @@
 A world of autonomous critters.
 
 ## To Run
-`beefy app.js --live`
+`npm start`
 
 ## Code
 
