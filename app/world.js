@@ -1,13 +1,15 @@
 var Vector  = require('./vector')
 var Emitter = require('./emitter')
+var Field   = require('./field')
 
 var World = function() {
   this.canvas       = document.querySelector('#world')
   this.ctx          = this.canvas.getContext('2d')
   this.particles    = []
   this.emitters     = []
+  this.fields       = []
   this.maxParticles = 25000
-  this.emissionRate = 4
+  this.emissionRate = 10
   this.particleSize = 1
 }
 
@@ -20,6 +22,7 @@ World.prototype = {
     this.canvas.width  = window.innerWidth
     this.canvas.height = window.innerHeight
     this.emitters.push(this.createAnEmitter())
+    this.fields.push(this.createAField())
   },
   cycle: function() {
     this.clear()
@@ -41,9 +44,13 @@ World.prototype = {
     this.drawParticles()
   },
   createAnEmitter: function() {
-    var position = new Vector(100, 230)
+    var position = new Vector(300, 500)
     var velocity = Vector.fromAngle(0, 2)
     return new Emitter(position, velocity)
+  },
+  createAField: function() {
+    var position = new Vector(500, 500)
+    return new Field(position, -140)
   },
   addNewParticles: function() {
     if (this.particles.length > this.maxParticles) return
