@@ -11,6 +11,7 @@ var World = function() {
   this.maxParticles = 25000
   this.emissionRate = 10
   this.particleSize = 1
+  this.objectSize   = 3
 }
 
 World.prototype = {
@@ -42,6 +43,8 @@ World.prototype = {
   },
   draw: function() {
     this.drawParticles()
+    this.fields.forEach(this.drawCircle.bind(this))
+    this.emitters.forEach(this.drawCircle.bind(this))
   },
   createAnEmitter: function() {
     var position = new Vector(300, 500)
@@ -71,6 +74,8 @@ World.prototype = {
 
       if (pos.x < 0 || pos.x > boundsX || pos.y < 0 || pos.y > boundsY) continue
 
+      particle.submitToFields(this.fields)
+
       particle.move()
       currentParticles.push(particle)
     }
@@ -85,6 +90,16 @@ World.prototype = {
 
       this.ctx.fillRect(position.x, position.y, this.particleSize, this.particleSize)
     }
+  },
+  drawCircle: function(object) {
+    this.ctx.fillStyle = object.drawColor
+    this.ctx.beginPath()
+    var x    = object.position.x
+    var y    = object.position.y
+    var size = this.objectSize
+    this.ctx.arc(x, y, size, 0, Math.PI * 2)
+    this.ctx.closePath()
+    this.ctx.fill()
   },
 }
 
